@@ -1,0 +1,130 @@
+doctype 5
+html
+  head
+    title 郵件系統
+    link rel='stylesheet' href='css/style.css'
+  body
+    script src='//127.0.0.1:35729/livereload.js'
+
+    section
+      h2 郵件系統
+
+    section
+      h2 意義
+      ul
+        li E-mail marketing
+        li Linux桌面折騰用戶
+
+    section
+      ul
+        li Mail user agent (MUA)
+        li Mail submission agent (MSA)
+        li Mail transfer agent (MTA)
+        li Mail retrieval agent (MTA)
+
+    section
+      h3 Mail User Agent
+      ul
+        li Mutt
+        li Thunderbird
+        li Webmail
+
+    section
+      h3 Mail Submission Agent
+      ul
+        li
+          pre: code
+            |
+              /etc/services
+              submission  587/tcp  # mail message submission
+
+    section
+      h3 Mail Transfer Agent
+      ul
+        li Sendmail
+        li qmail
+        li Postfix
+        li Exim
+
+    section
+      h3 Carbon Copy (Cc:)
+      ul
+        li 原義爲用複寫紙複寫
+        li 裏借用了這個術語表示把副本抄送給非主要收件人。
+
+    section
+      h3 Blind Carbon Copy (Bcc:)
+      ul
+        li To、Cc、Bcc收件人均收到同樣的郵件，該郵件中Bcc:首部被移除
+        li To、Cc收件人收到Bcc:首部被移除的郵件。Bcc收件人收到帶有Bcc:首部的郵件，實現可以決定Bcc收件人是否能見到其他Bcc收件人。
+        li To、Cc收件人會看到空的Bcc:首部。
+        li 在Gmail裏發封沒有To:、Cc:，只有Bcc:的郵件，收件人就會看到`To: undisclosed-recipients: ;`
+
+    section
+      h3 Signature Block
+      ul
+        li 附在郵件正文後面作爲簽名信息，通常會包含發件人的職位、聯繫方式等。
+        li 爲了和正文分隔開，一般使用兩個連字符跟着一個空格和一個換行符(sig dashes)，用C語言的字面字符串表示方式就是`"  -\n"`。
+        li 郵件客戶端可以認出雙連字符記號用與正文不同的樣式標記出來或者隱藏。
+
+    section
+      h3 Top Posting vs Bottom Posting
+      ul
+        li 在回覆郵件時，表示回覆文本時在原文下面寫回覆(bottom posting)還是在原文上面先回覆(top posting)。
+        li 傳統的方式是採用bottom posting，
+        li 先發生的事(引文)出現在前面、後發生的(回覆)出現在後面在時間順序上較爲自然，
+        li 而top posting則會對理清事件的先後順序造成阻礙：
+
+    section
+      h4 Top Posting
+      ul
+        li 網頁版郵件客戶端的興起和非黑客郵件使用者數目的激增。網頁版郵件客戶端的興起和非黑客郵件使用者數目的激增。
+        li 郵件客戶端缺乏標註引文和切換引文顯示功能時，採取top posting的方式能減少鼠標滾動，更容易看到回覆的內容。
+
+    section
+      h3 Local part
+      ul
+        li 大小寫區分
+        li
+          pre: code
+            |
+              Received: from edgebj.hnair.com (edgebj.hnair.com. [1.202.236.139])
+                      by mx.google.com with ESMTP id p6si25031100paa.47.2013.07.11.22.25.33
+                      for <EMACSRAY@gmail.com>;
+                      Thu, 11 Jul 2013 22:25:34 -0700 (PDT)
+
+    section
+      h3 Reply-To:
+
+    section
+      h3 In-Reply-To:
+      ul
+        li 標識本郵件所回覆的郵件
+
+    section
+      h3 References:
+      ul
+        li 標識郵件列表裏本郵件的祖先關係
+        li References:中最後一個message identifier爲parent
+        li 以前QQ webmail不支持Refences:和In-Replt-To:導致線索中斷
+        li 2013年下半年收到的部分QQ webmail郵件帶有上述首部
+
+    section
+      h3 Mail-Followup-To:
+
+    section
+      h3 CDN
+      ul
+        li 同時指定CNAME和MX兩種resource record
+        li
+          pre: code
+            |
+              @ CNAME www.example.com.
+              @ MX mx.example.com.
+        li Google webmaster會檢測報告網站DNS error導致內容無法被檢索
+
+    section
+      h3
+      ul
+        li smtp.exmail.qq.com
+        li 不含 From: 或者 To: ，smtp.exmail.qq.com 會回覆 250 Ok: queued as
