@@ -1,0 +1,26 @@
+{
+  "name": "scaffold",
+  "version": "0.0.1",
+  "author": {
+    "name": "Ray"
+  },
+  "scripts": {
+    "start": "grunt"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "grunt": "0.4.x",
+    "grunt-contrib-coffee": "0.6.x",
+    "grunt-contrib-stylus": "0.5.x",
+    "grunt-contrib-jade": "0.5.x",
+    "grunt-contrib-watch": "0.5.x",
+    "grunt-contrib-clean": "0.5.x",
+    "grunt-contrib-connect": "0.5.x",
+    "grunt-contrib-compress": "0.5.x",
+    "grunt-contrib-copy": "0.4.x",
+    "grunt-slim": "~0.1.0",
+    "grunt-contrib-sass": "~0.5.0",
+    "grunt-notify": "~0.2.16",
+    "grunt-bower-task": "~0.3.4"
+  }
+}

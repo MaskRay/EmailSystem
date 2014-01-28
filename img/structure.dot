@@ -1,0 +1,28 @@
+digraph {
+rankdir=LR
+MTA2[label=MTA]
+MTA3[label=MTA]
+MUA2[label=MUA]
+
+subgraph cluster_0 {
+  label="Postfix"
+  MSA -> MTA
+}
+
+MUA -> MSA[taillabel=Sender, labeldistance=5, labelangle=130, label="587/tcp"]
+
+subgraph cluster_2 {
+  label="SMTP relay"
+  MTA2
+}
+
+MTA -> MTA2[label="25/tcp"]
+MTA2 -> MTA3[label="25/tcp"]
+
+subgraph cluster_1 {
+  label="Exim"
+  MTA3 -> MDA
+}
+
+MDA -> MUA2[headlabel=Receiver, labeldistance=5, labelangle=-130, label="POP3"]
+}

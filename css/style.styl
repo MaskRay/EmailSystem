@@ -1,0 +1,133 @@
+@import 'nib'
+
+// Slide
+
+.step
+  font-weight bold
+  font-size 64px
+  width 1060px
+  height 720px
+  padding 40px 60px
+  color peachpuff
+  transition opacity 1s
+  opacity 0
+
+.active
+  opacity 1
+
+.will-fade
+  opacity 0
+
+.do-fade
+  opacity 1
+
+// Typography
+
+@font-face
+  font-family 'RamblaBold'
+  src url('../fonts/Rambla-Bold.ttf') format('truetype')
+
+body
+  font-family 'RamblaBold', sans
+  background-color #131514
+  color white
+
+p, ul, h2, h3, pre
+  margin .1em auto
+
+h1
+  font-size 100px
+  text-align center
+  color silver
+  text-shadow 0 0 30px hsla(0,255,192,0.6)
+
+h2, h3
+  font-size 68px
+  text-align center
+  text-shadow 0 0 3px darken(white, 50%)
+
+h2
+  color hsl(286, 58, 64%)
+
+h3
+  color hsl(286, 58, 74%)
+
+a
+  color lightblue
+
+.small
+  font-size 56px
+  code, .code
+    font-size 48px
+
+.smaller
+  font-size 50px
+  code, .code
+    font-size 44px
+
+pre
+  white-space pre-wrap
+  word-wrap break-word
+  margin .1em auto
+  code
+    display block
+
+code
+  padding .2em
+  border-radius .4em
+  font-weight normal
+  background #1d1f21
+  color #c5c8c6
+
+code, .code
+  font-family 'DejaVu Sans Mono', monospace
+  font-size 54px
+
+// #nest
+
+.row
+  position relative // for .bar
+  height 1em
+
+.text, .line, .indent, .indent::before
+  display inline-block
+  height 100%
+  vertical-align top
+
+.text
+  background darkblue
+
+.line
+  background gray
+
+.indent::before
+  height 1em
+  content '\00A0'
+  background lightgreen
+
+.bar
+  position absolute
+  top 0
+  left 0
+  bottom 0
+  width 10px
+  background red
+  margin-left -@width
+
+.container
+  position relative
+
+.code.post
+  position absolute
+  top 0
+  right 0
+
+// Content
+
+#title p
+  text-align center
+
+.middle
+  display -webkit-flex
+  -webkit-align-items center
+  -webkit-justify-items center

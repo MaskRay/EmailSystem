@@ -1,17 +1,18 @@
 doctype 5
 html
   head
+    meta charset='utf-8'
+    meta name='author' content='MaskRay'
     title 郵件系統
     link rel='stylesheet' href='css/style.css'
     link rel='stylesheet' href='css/tomorrow-night.css'
   body
     #jmpress
       article
-        .step
+        #title.step
           h1 郵件系統
-          p 宋方睿
-          p Weibo: @Mask_Ray
-          p http://maskray.me
+          p MaskRay
+          p maskray.me
 
         .step
           h2 意義
@@ -20,11 +21,15 @@ html
             li Linux桌面折騰用戶
 
         .step
+          h2 結構
           ul
             li Mail user agent (MUA)
             li Mail submission agent (MSA)
             li Mail transfer agent (MTA)
             li Mail retrieval agent (MTA)
+
+        .step.middle
+          img src='img/structure.png'
 
         .step
           h3 Mail User Agent
@@ -57,38 +62,43 @@ html
         .step
           h3 Carbon Copy (Cc:)
           ul
-            li 原義爲用複寫紙複寫
-            li 裏借用了這個術語表示把副本抄送給非主要收件人。
+            li 用複寫紙複寫
+            li 裏借用了這個術語表示把副本抄送給非主要收件人
 
         .step
           h3 Blind Carbon Copy (Bcc:)
           ul
-            li To、Cc、Bcc收件人均收到同樣的郵件，該郵件中Bcc:首部被移除
-            li To、Cc收件人收到Bcc:首部被移除的郵件。Bcc收件人收到帶有Bcc:首部的郵件，實現可以決定Bcc收件人是否能見到其他Bcc收件人。
-            li To、Cc收件人會看到空的Bcc:首部。
-            li 在Gmail裏發封沒有To:、Cc:，只有Bcc:的郵件，收件人就會看到`To: undisclosed-recipients: ;`
+            li RFC5322提及郵件客戶端有三種處理Bcc:的方式
+            li 最常見的：To、Cc、Bcc看到空的Bcc:首部
+            li 在Gmail裏發封沒有To:、Cc:，只有Bcc:的郵件，收件人就會看到<code>To: undisclosed-recipients: ;</code>
 
         .step
           h3 Signature Block
           ul
-            li 附在郵件正文後面作爲簽名信息，通常會包含發件人的職位、聯繫方式等。
-            li 爲了和正文分隔開，一般使用兩個連字符跟着一個空格和一個換行符(sig dashes)，用C語言的字面字符串表示方式就是`"  -\n"`。
-            li 郵件客戶端可以認出雙連字符記號用與正文不同的樣式標記出來或者隱藏。
+            li 簽名信息
+            li 一般使用兩個連字符跟着一個空格和一個換行符(sig dashes)
+            li <code>"-- \n"</code>
+            li 郵件客戶端可以認出雙連字符記號用與正文不同的樣式標記出來或者隱藏
 
         .step
           h3 Top Posting vs Bottom Posting
           ul
-            li 在回覆郵件時，表示回覆文本時在原文下面寫回覆(bottom posting)還是在原文上面先回覆(top posting)。
-            li 傳統的方式是採用bottom posting，
-            li 先發生的事(引文)出現在前面、後發生的(回覆)出現在後面在時間順序上較爲自然，
-            li 而top posting則會對理清事件的先後順序造成阻礙：
+            li 在回覆郵件時，表示回覆文本時在原文下面寫回覆還是在原文上面先回覆
+            li 傳統的方式是採用bottom posting
 
         .step
-          h4 Top Posting
+          h3 Top Posting vs Bottom Posting
           ul
-            li 網頁版郵件客戶端的興起和非黑客郵件使用者數目的激增。網頁版郵件客戶端的興起和非黑客郵件使用者數目的激增。
-            li 郵件客戶端缺乏標註引文和切換引文顯示功能時，採取top posting的方式能減少鼠標滾動，更容易看到回覆的內容。
-            li Mutt默認就設置了快捷鍵跳到下一個不包含引文的行：
+            li 先發生的事(引文)出現在前面、後發生的(回覆)出現在後面在時間順序上較爲自然
+            li 而top posting則會對理清事件的先後順序造成阻礙
+
+        .step
+          h3 Top Posting vs Bottom Posting
+          ul
+            li 網頁版郵件客戶端的興起和非黑客郵件使用者數目的激增
+            li 網頁版郵件客戶端的興起和非黑客郵件使用者數目的激增
+            li Top posting能減少鼠標滾動
+            li Mutt默認就設置了快捷鍵跳到下一個不包含引文的行
 
         .step
           h3 Local part
@@ -99,7 +109,7 @@ html
                 |
                   Received: from edgebj.hnair.com (edgebj.hnair.com. [1.202.236.139])
                           by mx.google.com with ESMTP id p6si25031100paa.47.2013.07.11.22.25.33
-                          for <EMACSRAY@gmail.com>;
+                          for &lt;EMACSRAY@gmail.com&gt;;
                           Thu, 11 Jul 2013 22:25:34 -0700 (PDT)
 
         .step
@@ -124,15 +134,69 @@ html
           h3 Mail-Followup-To:
 
         .step
-          h3= 'format=flowed'
+          h3= 'f=f'
+          ul
+            li
+              | format=fixed
+            li
+              | format=flowed
+
+        .step
+          h2 收郵件
+          ul
+            li POP3
+            li IMAP
+            li Microsoft Exchange ActiveSync
+
+        .step
+          h3 POP3
+          ul
+            pre: code
+              |
+                % openssl s_client -connect example:pop3s
+                +OK Dovecot ready.
+                USER ray
+                +OK
+                PASS ray
+                +OK Logged in.
+                LIST
+                +OK 3 messages.
+                1 200
+                2 310
+                3 203
+                .
+                RETR 2
+                ......
+                DELE 2
+                +OK
+                QUIT
+                +OK Logging out.
+
+        .step
+          h3 IMAP
+          ul
+            li: pre: code
+              |
+                telnet example imap
+                openssl s_client -connect example:imaps
+                a login ray ray
+                a list "" "*"
+                a logout
 
         .step
           h2 防Spam
+          ul
+            li SPF
+            li DKIM
 
         .step
           h3 Sender Policy Framework
           ul
             li DNS
+            li: pre: code
+              |
+                maskray.me. 600  IN TXT "v=spf1 include:hotmail.com ~all"
+                net9.org.   3600 IN SPF "v=spf1 a ~all"
 
         .step
           h3 DomainKeys Identified Mail
@@ -144,12 +208,19 @@ html
           h2 桌面Linux折騰
           ul
             li http://maskray.me/blog/2012-11-13-personal-mail-system
+            li offlineimap, msmtp, notmuch, procmail
+            li mailx (<code>/bin/mail</code>)
 
         .step
           h3 CDN
           ul
             li 易犯錯誤
             li 同時指定CNAME和MX兩種resource record
+            li RFC1912 section 2.4: <q>A CNAME record is not allowed to coexist with any other data.</q>
+
+        .step
+          h3 CDN (Cont.)
+          ul
             li
               pre: code
                 |
@@ -158,10 +229,13 @@ html
             li Google webmaster會檢測報告網站DNS error導致內容無法被檢索
 
         .step
-          h3
+          h3 其他
           ul
             li smtp.exmail.qq.com
             li 不含 From: 或者 To: ，smtp.exmail.qq.com 會回覆 250 Ok: queued as
+
+        .step.middle
+          h2 謝謝
 
     script src='//127.0.0.1:35729/livereload.js'
     script src='js/jquery-1.8.3.min.js'
@@ -188,7 +262,7 @@ html
       # duration bar
       duration_bar = $('<div/>').css('background-color': 'cyan', width: '0', height: '5px', left: 0, bottom: 0, position: 'fixed').appendTo $('body')
       start = Date.now()
-      full = 10*60*1000
+      full = 15*60*1000
       setInterval ->
         duration = Date.now()-start
         w = $(window).width()
